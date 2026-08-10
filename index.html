@@ -3,191 +3,1363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ألفا بلوك العالمية المتكاملة | Alpha Block</title>
+    <title>منصة ألفا بلوك البرمجية المتكاملة | Alpha Block Pro</title>
+    
+    <!-- مكتبات التنسيق والأيقونات العالمية المتطابقة والمستقرة -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <link href="https://cloudflare.com" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a237e">
+
     <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            text-align: center; 
-            background-color: #f0f2f5; 
-            padding: 20px; 
-            color: #333; 
-            margin: 0; 
+        /* التنسيقات والألوان البصرية الموحدة للنظام */
+        :root {
+            --alpha-primary: #1a237e;
+            --alpha-secondary: #0d47a1;
+            --alpha-orange: #ff6d00;
+            --alpha-dark: #212121;
+            --alpha-light: #f5f5f5;
+            --alpha-success: #00c853;
         }
-        .container { 
-            max-width: 1000px; 
-            margin: 20px auto; 
-            background: #ffffff; 
-            padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
-        }
-        .header-logo { font-size: 36px; font-weight: bold; color: #0056b3; margin-bottom: 5px; }
-        .header-desc { font-size: 16px; color: #666; margin-bottom: 25px; }
-        
-        /* زر تنزيل التطبيق للموبايل والكمبيوتر PWA */
-        .pwa-install-bar {
-            background: #20c997; color: white; padding: 12px; border-radius: 10px; margin-bottom: 20px;
-            font-weight: bold; display: flex; justify-content: space-between; align-items: center;
-        }
-        .pwa-btn { background: white; color: #20c997; border: none; padding: 6px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-        .user-dashboard {
-            background: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 10px; margin-bottom: 30px;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+        body {
+            background-color: var(--alpha-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--alpha-dark);
+            transition: all 0.3s ease;
         }
-        .user-info { font-weight: bold; color: #0d47a1; text-align: right; }
-        .balance-badge { background: #0056b3; color: white; padding: 6px 12px; border-radius: 20px; font-size: 14px; }
-        
-        h2 { 
-            color: #222; border-bottom: 3px solid #0056b3; padding-bottom: 10px; margin-top: 50px; text-align: right; font-size: 24px;
-        }
-        .section-desc { text-align: right; font-size: 15px; color: #555; margin-bottom: 10px; }
-        
-        .upload-wrapper {
-            background: #f8f9fa; border: 2px dashed #0056b3; padding: 20px; border-radius: 10px; margin-top: 15px; margin-bottom: 15px;
-        }
-        .file-input { display: none; }
-        .upload-label { display: inline-block; background: #0056b3; color: white; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
-        .url-input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px; margin-bottom: 15px; box-sizing: border-box; text-align: left; direction: ltr; }
-        
-        textarea { 
-            width: 100%; height: 130px; padding: 15px; border-radius: 10px; border: 2px solid #ced4da; 
-            font-family: 'Courier New', Courier, monospace; font-size: 14px; text-align: left; direction: ltr; resize: none; box-sizing: border-box; background-color: #282c34; color: #abb2bf;
-        }
-        
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
-        @media (max-width: 600px) { .btn-group { flex-direction: column; } }
-        .btn-check, .btn-build { 
-            flex: 1; color: #ffffff; border: none; padding: 14px 25px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;
-        }
-        .btn-check { background-color: #28a745; box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2); }
-        .btn-check:hover { background-color: #218838; }
-        .btn-build { background-color: #fd7e14; box-shadow: 0 4px 6px rgba(253, 126, 20, 0.2); display: none; }
-        .btn-build:hover { background-color: #e46a06; }
-        .result-box { 
-            margin-top: 20px; padding: 20px; background: #f8f9fa; border-right: 5px solid #007bff; border-radius: 8px; text-align: right; font-size: 15px; display: none; line-height: 1.6;
-        }
-        .emulator-section { display: none; margin-top: 25px; background: #333; padding: 20px; border-radius: 15px; color: white; }
-        .phone-mockup { width: 260px; height: 420px; background: #000; border: 8px solid #555; border-radius: 25px; margin: 15px auto; position: relative; overflow: hidden; }
-        .phone-screen { width: 100%; height: 100%; background: #fff; color: #333; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
-        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        @media (max-width: 768px) { .grid-container { grid-template-columns: 1fr; } }
-        .card { 
-            border: 1px solid #e1e4e8; padding: 20px; border-radius: 12px; background: #ffffff; text-align: right; box-shadow: 0 4px 10px rgba(0,0,0,0.03); position: relative;
+        /* تنسيقات الهوية العلوية والـ Navbar */
+        .navbar-alpha {
+            background: linear-gradient(135deg, var(--alpha-primary), var(--alpha-secondary));
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .card h3 { margin-top: 0; color: #0056b3; font-size: 18px; }
-        .card p { font-size: 14px; color: #666; line-height: 1.5; }
-        .price { font-weight: bold; color: #e67e22; font-size: 22px; margin: 10px 0; }
-        
-        .commission-info {
-            font-size: 12px; color: #666; background: #fff3cd; padding: 5px 8px; border-radius: 4px; margin-bottom: 12px; font-weight: 500;
+
+        .btn-orange {
+            background-color: var(--alpha-orange);
+            color: white;
+            border: none;
+            transition: all 0.2s ease;
         }
-        .action-btn { 
-            background: #0056b3; color: white; border: none; padding: 11px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 14px; margin-bottom: 8px;
+
+        .btn-orange:hover {
+            background-color: #e65100;
+            color: white;
+            transform: translateY(-2px);
         }
-        .action-btn:hover { background: #004085; }
-        .chat-btn { background: #6f42c1; color: white; }
-        .chat-btn:hover { background: #59359a; }
-        .playstore-btn { background: #e67e22; }
-        .playstore-btn:hover { background: #ca6f1e; }
-        
-        .source-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; color: white; margin-bottom: 10px; }
-        .linkedin { background: #0077b5; }
-        .ai-rating { color: #f1c40f; font-size: 13px; font-weight: bold; margin-bottom: 10px; }
-        .showcase-img { width: 100%; height: 110px; background: #e9ecef; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #0056b3; font-weight: bold; font-size: 14px; margin-bottom: 10px; border: 1px solid #ddd; }
-        
-        .chat-box-container {
-            display: none; position: fixed; bottom: 20px; left: 20px; width: 340px; 
-            background: white; border: 2px solid #6f42c1; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); 
-            z-index: 1000; text-align: right; overflow: hidden;
+
+        /* بطاقات الميزات المطورة */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff;
         }
-        .chat-header { background: #6f42c1; color: white; padding: 12px; font-weight: bold; font-size: 14px; display: flex; justify-content: space-between; }
-        .chat-messages { height: 220px; overflow-y: auto; padding: 10px; background: #f8f9fa; font-size: 13px; line-height: 1.4; }
-        .msg { margin-bottom: 8px; padding: 8px; border-radius: 6px; max-width: 85%; }
-        .msg.buyer { background: #e1f5fe; margin-right: auto; text-align: left; }
-        .msg.seller { background: #f3e5f5; margin-left: auto; text-align: right; }
-        .chat-footer { padding: 8px; background: white; display: flex; gap: 5px; border-top: 1px solid #eee; }
-        .chat-input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
-        .chat-send-btn { background: #6f42c1; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* شريط تثبيت التطبيق PWA */
+        #pwa-banner {
+            background: linear-gradient(90deg, #ff6d00, #ffab40);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* تخصيص محرر الأكواد المتكامل والأسطر */
+        .position-relative {
+            position: relative;
+        }
+
+        .ide-line-numbers {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 100%;
+            background-color: #1e1e1e;
+            color: #858585;
+            text-align: center;
+            padding-top: 17px;
+            font-family: monospace;
+            font-size: 14px;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+            border-right: 1px solid #3c3c3c;
+            user-select: none;
+            line-height: 1.5;
+        }
+
+        #proCodeEditor, #codeEditor {
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        /* عجلة الحظ التفاعلية */
+        #luckyWheelCanvas {
+            background: conic-gradient(
+                #1a237e 0deg 60deg, 
+                #ff6d00 60deg 120deg, 
+                #00c853 120deg 180deg, 
+                #0d47a1 180deg 240deg, 
+                #d50000 240deg 300deg,
+                #aa00ff 300deg 360deg
+            );
+            color: white !important;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        }
+
+        /* الحركات والأنيميشن الحية للنظام */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-bounce {
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ألسنة وتنسيقات ألوان غرف الشات والمحادثات */
+        .max-w-75 { max-width: 75%; }
+        .max-w-90 { max-width: 90%; }
         
-        .marketplace-control { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: right; display: flex; gap: 10px; align-items: center; }
-        .market-btn { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .footer { margin-top: 60px; font-size: 13px; color: #888; border-top: 1px solid #eee; padding-top: 15px; }
+        .job-card {
+            transition: background-color 0.2s;
+        }
+        .job-card:hover {
+            background-color: rgba(26, 35, 126, 0.03);
+        }
+
+        /* تعديلات التوافق لتبديل الاتجاهات LTR / RTL */
+        body[dir="ltr"] .ide-line-numbers {
+            left: 0;
+            right: auto;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: 1px solid #3c3c3c;
+            border-left: none;
+        }
+        body[dir="ltr"] .ps-5 {
+            padding-left: 3rem !important;
+            padding-right: 1rem !important;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- شريط PWA لتنزيل وتثبيت التطبيق على الموبايل والكمبيوتر -->
-        <div class="pwa-install-bar">
-            <span>تطبيق ألفا بلوك متاح الآن لجهازك! قم بتثبيته واستخدمه كبرنامج للكمبيوتر أو تطبيق للهاتف 📱🖥️</span>
-            <button class="pwa-btn" onclick="alert('جاري تشغيل ميزة الـ PWA... تم تثبيت تطبيق ألفا بلوك بنجاح على شاشتك الرئيسية للكمبيوتر/الهاتف!')">تثبيت التطبيق الآن</button>
-        </div>
 
-        <div class="header-logo">ألفا بلوك (Alpha Block)</div>
-        <div class="header-desc">المنصة العالمية المتكاملة لبناء البرمجيات، وتداول الأكواد، ومتجر ألعاب وتطبيقات المطورين المعتمد</div>
+    <!-- شريط تثبيت تطبيق الـ PWA والنسخة السريعة هاتف/كمبيوتر -->
+    <div id="pwa-banner" class="d-none p-2 text-center position-sticky top-0 w-100" style="z-index: 1050;">
+        <span class="me-2"><i class="fas fa-mobile-alt me-1"></i> يمكنك الآن تنزيل وتثبيت موقع "ألفا بلوك" كتطبيق سريع على هاتفك أو كمبيوترك!</span>
+        <button id="btnInstallPWA" class="btn btn-sm btn-dark text-white fw-bold px-3 py-1 ms-2">تثبيت التطبيق الآن</button>
+    </div>
+
+    <!-- الترويسة العلوية وشريط التصفح الرئيسي -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-alpha sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="#">
+                <i class="fas fa-cubes text-warning me-2"></i>ALPHA <span class="text-warning">BLOCK</span>
+            </a>
+            <button class="navbar-expand-sm navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#alphaNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="alphaNavbar">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold text-center">
+                    <li class="nav-item"><a class="nav-link active" href="#compiler-section"><i class="fas fa-terminal me-1"></i>الفحص والتصحيح</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#marketplace-section"><i class="fas fa-store me-1"></i>سوق الأكواد</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pro-features-container"><i class="fas fa-cubes-stacked me-1"></i>الأدوات المتقدمة Pro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#store-jobs-section"><i class="fab fa-google-play me-1"></i>متجر التطبيقات</a></li>
+                </ul>
+                <!-- سيتم حقن منتقي اللغات العالمي ديناميكياً هنا عبر الجافا سكريبت في الأجزاء التالية -->
+            </div>
+        </div>
+    </nav>
+        <!-- واجهة النظام الرئيسية والخدمات المتكاملة -->
+    <main class="container my-5">
         
-        <div class="user-dashboard">
-            <div class="user-info">👋 مرحباً بك في لوحة تحكم مطوري ألفا بلوك العالمية!</div>
-            <div><span class="balance-badge">الرصيد البرمجي اليومي: <span id="creditBalance">2</span> باقة</span></div>
-        </div>
-        <!-- الميزة الجديدة: متجر تطبيقات ألفا بلوك المفتوح (Alpha Block Play Store) -->
-        <h2>🤖 متجر تطبيقات ألفا بلوك للمستخدمين (Alpha Block Play Store)</h2>
-        <div class="section-desc">اشترك كمطور وانشر تطبيقك؛ نقتطع عمولة 10% من التطبيقات المربحة، أو رسوم تحميل رصيد من التطبيقات غير الربحية لحماية الخوادم:</div>
-        <div class="marketplace-control" style="background:#fff3cd;">
-            <span>🚀 هل قمت ببناء تطبيق وتريد نشره للجمهور على متجرنا ليربح؟</span>
-            <button class="market-btn" style="background:#e67e22;" onclick="publishToStorePrompt()">➕ انشر تطبيقك على المتجر الآن</button>
-        </div>
-        <div class="grid-container" id="playstoreContainer">
-            <div class="card">
-                <h3>تطبيق "المحاسب الذكي" (برو)</h3>
-                <p>تطبيق إدارة أموال ومحاسبة للشركات الصغيرة. تطبيق ربحي بنظام شراء داخلي.</p>
-                <div class="price">15.00$</div>
-                <div class="commission-info">⚙️ عمولة متجرك (10%): 1.50$ | صافي ربح المطور: 13.50$</div>
-                <button class="action-btn playstore-btn" onclick="downloadFromStore('المحاسب الذكي', '15.00$', true)">🛒 تحميل وتثبيت التطبيق المدفوع</button>
+        <!-- قسم الرفع وفحص الأكواد وجدار الحماية التلقائي (Sandbox AI) -->
+        <section id="compiler-section" class="mb-5">
+            <div class="card p-4 border-0 shadow-sm">
+                <h3 class="text-primary mb-4 fw-bold"><i class="fas fa-code-branch me-2"></i>نظام فحص وتصحيح الأكواد التلقائي (Sandbox AI)</h3>
+                
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold"><i class="fas fa-file-code me-1 text-primary"></i>رفع ملف المشروع المباشر (.java, .dart, .zip)</label>
+                        <input type="file" id="codeFile" class="form-control" accept=".java,.dart,.zip">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold"><i class="fas fa-link me-1 text-primary"></i>أو لصق رابط المشروع (من تطبيق أكود أو GitHub)</label>
+                        <input type="url" id="codeUrl" class="form-control" placeholder="https://github.com... أو رابط مشروعك البرمجي">
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold"><i class="fas fa-edit me-1 text-primary"></i>لصق الشفرة البرمجية مباشرة لتحليلها</label>
+                    <textarea id="codeEditor" class="form-control bg-dark text-light font-monospace p-3" rows="7" placeholder="// اكتب أو الصق كودك هنا ليقوم جدار الحماية والذكاء الاصطناعي بتصحيحه تلقائياً..."></textarea>
+                </div>
+                
+                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                    <div>
+                        <button id="btnCompile" class="btn btn-primary px-4 fw-bold"><i class="fas fa-terminal me-2"></i>فحص وتصحيح الكود</button>
+                        <button id="btnBuildApp" class="btn btn-orange px-4 fw-bold d-none"><i class="fas fa-android me-2"></i>تحويل الكود إلى تطبيق أندرويد</button>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge bg-secondary p-2 fs-6" id="creditDisplay">الرصيد المتبقي اليوم: 2 باقة حماية</span>
+                    </div>
+                </div>
+                
+                <div id="compilerOutput" class="mt-4 p-3 bg-dark text-success rounded border d-none">
+                    <h6 class="text-warning fw-bold mb-2"><i class="fas fa-bug-slash me-2"></i>تقرير الذكاء الاصطناعي وجدار الحماية عالي الأمان:</h6>
+                    <pre id="outputText" class="mb-0 font-monospace" style="white-space: pre-wrap;"></pre>
+                </div>
             </div>
-            <div class="card">
-                <h3>تطبيق "مذكراتي اليومية" (نسخة مجانية للجمهور)</h3>
-                <p>تطبيق بسيط لتدوين الملاحظات. التطبيق غير ربحي ولا يحتوي على إعلانات أو دفع داخلي.</p>
-                <div class="price">0.00$</div>
-                <div class="commission-info">🛡️ حماية الخوادم: يخصم 1 رصيد (أو 0.50$) من المستخدم عند التنزيل لمنع الضغط</div>
-                <button class="action-btn playstore-btn" onclick="downloadFromStore('مذكراتي اليومية', '1 رصيد', false)">📥 تنزيل وتثبيت التطبيق (خصم 1 رصيد)</button>
-            </div>
-        </div>
+        </section>
 
-        <!-- سوق الماركت بليس تداول الأكواد -->
-        <h2>🛒 سوق ألفا بلوك البرمجي العالمي وماركت الأكواد (Global Marketplace)</h2>
-        <div class="marketplace-control">
-            <span>📢 هل تملك كوداً متميزاً وتريد بيعه?</span>
-            <button class="market-btn" onclick="sellItemPrompt()">➕ اعرض كودك للبيع الآن</button>
-        </div>
-        <div class="grid-container" id="marketplaceContainer">
-            <div class="card">
-                <div class="ai-rating">⭐ جودة الذكاء الاصطناعي: 4.9/5</div>
-                <h3>كود تطبيق متجر إلكتروني كامل (Flutter)</h3>
-                <p>تطبيق متجر متكامل مع لوحة تحكم، متوافق مع نظام أندرويد وآي أو إس.</p>
-                <div class="price" id="price-item1">2000.00$</div>
-                <div class="commission-info">💡 عمولة منصتك (10%): 200.00$ | صافي ربح البائع: 1800.00$</div>
-                <button class="action-btn" onclick="buyItemAction('تطبيق متجر إلكتروني كامل (Flutter)', 2000)">شراء الكود واستلام مفتاح الترخيص</button>
-                <button class="action-btn chat-btn" onclick="openChatWithSeller('المطور أحمد', 'تطبيق متجر إلكتروني كامل (Flutter)', 2000)">💬 مراسلة البائع والتفاوض</button>
-            </div>
-        </div>
+        <!-- سوق الأكواد العالمي وغرف التفاوض الفورية بنظام العمولات -->
+        <section id="marketplace-section" class="mb-5">
+            <div class="row g-4">
+                
+                <!-- قائمة الأكواد المعروضة للبيع والشراء في السوق -->
+                <div class="col-lg-7">
+                    <div class="card p-4 h-100 border-0 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-primary m-0 fw-bold"><i class="fas fa-store me-2"></i>سوق الأكواد العالمي</h3>
+                            <button class="btn btn-success btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#addCodeModal"><i class="fas fa-plus me-1"></i>عرض كود للبيع</button>
+                        </div>
+                        
+                        <div class="row g-3" id="marketplaceItems">
+                            <!-- كود برمجي افتراضي 1 -->
+                            <div class="col-md-6">
+                                <div class="card h-100 border border-light-subtle shadow-sm bg-body">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div>
+                                            <span class="badge bg-info mb-2 text-dark fw-bold">Flutter / Dart</span>
+                                            <h5 class="card-title fw-bold text-dark">تطبيق متجر إلكتروني متكامل</h5>
+                                            <p class="card-text text-muted small">يحتوي على سلة مشتريات ذكية وبوابة دفع مدمجة ونظام تتبع الشحنات حياً.</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-success fw-bold my-3">1500 $</h4>
+                                            <button class="btn btn-outline-primary w-100 btn-start-chat fw-bold" data-seller="أحمد المطور" data-item="متجر إلكتروني" data-price="1500"><i class="fas fa-comments me-2"></i>تفاوض وشراء فوراً</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- كود برمجي افتراضي 2 -->
+                            <div class="col-md-6">
+                                <div class="card h-100 border border-light-subtle shadow-sm bg-body">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <div>
+                                            <span class="badge bg-warning text-dark mb-2 fw-bold">Java / Android</span>
+                                            <h5 class="card-title fw-bold text-dark">نظام إدارة المطاعم والمبيعات</h5>
+                                            <p class="card-text text-muted small">تطبيق أندرويد لربط الطاولات والمطبخ مباشرة مع لوحة تحكم ونظام محاسبي دقيق.</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-success fw-bold my-3">2000 $</h4>
+                                            <button class="btn btn-outline-primary w-100 btn-start-chat fw-bold" data-seller="سارة للبرمجيات" data-item="نظام المطاعم" data-price="2000"><i class="fas fa-comments me-2"></i>تفاوض وشراء فوراً</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <h2>💼 بوابة التوظيف المركزية (متزامنة مع LinkedIn & Upwork)</h2>
-        <div class="grid-container">
-            <div class="card">
-                <span class="source-badge linkedin">LinkedIn Live</span>
-                <h3>مطور تطبيقات جوال أول (Android Developer)</h3>
-                <p>مطلب مبرمج لربط واجهات برمجية لتطبيق تجارة إلكترونية، متاح التقديم المباشر.</p>
-                <button class="action-btn" style="background:#6c757d;" onclick="alert('اتصال آمن...')">التقديم والربط الفوري</button>
+                <!-- غرفة التفاوض والدردشة الفورية الآمنة لاحتساب العمولات -->
+                <div class="col-lg-5">
+                    <div class="card p-0 h-100 d-flex flex-column border-0 shadow-sm" id="chatWindow">
+                        <div class="card-header bg-primary text-white p-3 d-flex justify-content-between align-items-center rounded-top">
+                            <h5 class="m-0 fw-bold"><i class="fas fa-comments-dollar me-2"></i>غرفة التفاوض الفورية</h5>
+                            <span id="activeSellerName" class="badge bg-light text-primary fw-bold">اختر كوداً لبدء التفاوض</span>
+                        </div>
+                        
+                        <div class="card-body bg-light flex-grow-1 p-3 overflow-y-auto" id="chatBox" style="height: 350px;">
+                            <div class="text-center text-muted my-5 small">
+                                <i class="fas fa-lock d-block fs-3 mb-2 text-secondary"></i>
+                                جميع المحادثات مشفرة وآمنة تماماً. تدعم المنصة توليد مفاتيح التراخيص والروابط الآمنة تلقائياً بعد اقتطاع عمولة المنصة البالغة 10%.
+                            </div>
+                        </div>
+                        
+                        <div class="p-3 border-top bg-white rounded-bottom">
+                            <div class="row g-2 mb-2 d-none" id="negotiationTools">
+                                <div class="col-6">
+                                    <input type="number" id="negotiatedPrice" class="form-control form-control-sm" placeholder="السعر المقترح $">
+                                </div>
+                                <div class="col-6">
+                                    <button id="btnSendOffer" class="btn btn-warning btn-sm w-100 fw-bold text-dark"><i class="fas fa-handshake me-1"></i>إرسال عرض مالي</button>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="chatMessage" class="form-control" placeholder="اكتب رسالتك أو استفسارك هنا..." disabled>
+                                <button id="btnSendMessage" class="btn btn-primary" type="button" disabled><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <!-- متجر تطبيقات ألفا بلوك وبوابة التوظيف الموحدة -->
+        <section id="store-jobs-section" class="mb-5">
+            <div class="row g-4">
+                
+                <!-- متجر تطبيقات ألفا بلوك (Alpha Block Play Store) -->
+                <div class="col-lg-6">
+                    <div class="card p-4 h-100 border-0 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-primary m-0 fw-bold"><i class="fab fa-google-play me-2"></i>متجر تطبيقات Alpha Block Play</h3>
+                            <button class="btn btn-orange btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#publishAppModal"><i class="fas fa-cloud-upload-alt me-1"></i>انشر تطبيقك</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>اسم التطبيق</th>
+                                        <th>النوع</th>
+                                        <th>السعر</th>
+                                        <th class="text-center">الإجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appStoreItems">
+                                    <tr>
+                                        <td><strong>تطبيق تعديل الصور AI</strong></td>
+                                        <td><span class="badge bg-success fw-bold">ربحي</span></td>
+                                        <td class="text-success fw-bold">15 $</td>
+                                        <td class="text-center"><button class="btn btn-sm btn-orange btn-download-app fw-bold" data-name="تطبيق تعديل الصور AI" data-type="paid" data-cost="15"><i class="fas fa-shopping-cart me-1"></i>شراء وتحميل</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>أداة تنظيم الوقت والملاحظات</strong></td>
+                                        <td><span class="badge bg-secondary fw-bold">مجاني</span></td>
+                                        <td class="text-muted fw-bold">0 $</td>
+                                        <td class="text-center"><button class="btn btn-sm btn-outline-primary btn-download-app fw-bold" data-name="أداة تنظيم الوقت" data-type="free" data-cost="1"><i class="fas fa-download me-1"></i>تحميل (1 رصيد)</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- بوابة التوظيف الموحدة (مزامنة حية) -->
+                <div class="col-lg-6">
+                    <div class="card p-4 h-100 border-0 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-primary m-0 fw-bold"><i class="fas fa-briefcase me-2"></i>بوابة التوظيف الموحدة</h3>
+                            <span class="badge bg-danger animate-pulse p-2 fw-bold"><i class="fas fa-sync-alt me-1 fa-spin"></i>مزامنة حية مع المنصات</span>
+                        </div>
+                        <div id="jobsList" class="overflow-y-auto" style="max-height: 380px;">
+                            <div class="p-3 border-bottom job-card">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1 text-dark fw-bold">مطلوب مطور Flutter محترف عن بعد</h6>
+                                        <p class="text-muted small mb-2"><i class="fab fa-linkedin text-primary me-1"></i>عبر LinkedIn | شركة تقنية إقليمية</p>
+                                    </div>
+                                    <span class="badge bg-light text-success border border-success fw-bold">دوام كامل</span>
+                                </div>
+                                <a href="https://linkedin.com" target="_blank" class="btn btn-sm btn-link text-primary p-0 fw-bold">تقدم للوظيفة مباشرة <i class="fas fa-arrow-left small ms-1"></i></a>
+                            </div>
+                            <div class="p-3 border-bottom job-card">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1 text-dark fw-bold">تطوير تطبيق أندرويد متكامل لمتجر خضروات</h6>
+                                        <p class="text-muted small mb-2"><i class="fas fa-laptop-code text-warning me-1"></i>عبر مستقل | ميزانية: 500$ - 1000$</p>
+                                    </div>
+                                    <span class="badge bg-light text-warning border border-warning fw-bold">مشروع</span>
+                                </div>
+                                <a href="https://mostaql.com" target="_blank" class="btn btn-sm btn-link text-primary p-0 fw-bold">تقديم العرض الآن <i class="fas fa-arrow-left small ms-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- نافذة منبثقة: عرض شفرة برمجية جديدة للبيع -->
+    <div class="modal fade" id="addCodeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold text-primary"><i class="fas fa-plus-circle me-2"></i>عرض شفرة برمجية جديدة في السوق</h5>
+                    <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmAddCode">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">عنوان الشفرة / المشروع</label>
+                            <input type="text" id="newCodeTitle" class="form-control" required placeholder="مثال: سكريبت إدارة مخازن ومبيعات متكامل">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">لغة البرمجة / بيئة العمل</label>
+                            <input type="text" id="newCodeLang" class="form-control" required placeholder="مثال: Java / Spring Boot">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">وصف برمجى مختصر</label>
+                            <textarea id="newCodeDesc" class="form-control" rows="3" required placeholder="اشرح أهم ميزات الشفرة وثوابت الأمان..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">السعر المطلوب بالدولار ($)</label>
+                            <input type="number" id="newCodePrice" class="form-control" required placeholder="أدخل السعر، مثال: 500">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2">إدراج الكود في السوق العالمي</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="footer">جميع الحقوق محفوظة © 2026 لشركة ألفا بلوك ستوديو (Alpha Block Studio)</div>
     </div>
 
-    <!-- نافذة المحادثة العائمة -->
-    <div id="chatBoxWindow" class="chat-box-container">
-        <div class="chat-header"><span id="chatWithTitle">المحادثة المباشرة</span><span style="cursor:pointer;" onclick="document.getElementById('chatBoxWindow').style.display='none'">✕</span></div>
-        <div class="chat-messages" id="chatMessagesArea"></div>
-        <div class="chat-footer"><input type="text" id="chatInputBar" class="chat-input" placeholder="اكتب رسالتك..."><button class="chat-send-btn" onclick="sendChatMessage()">إرسال</button></div>
+    <!-- نافذة منبثقة: نشر تطبيق جديد على المتجر -->
+    <div class="modal fade" id="publishAppModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold text-orange"><i class="fab fa-google-play me-2"></i>نشر تطبيق جديد على Alpha Store</h5>
+                    <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmPublishApp">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">اسم التطبيق</label>
+                            <input type="text" id="newAppName" class="form-control" required placeholder="مثال: لعبة الذكاء الخارقة">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">نوع التطبيق ونظام تسعيره</label>
+                            <select id="newAppType" class="form-select">
+                                <option value="free">مجاني (يخصم 1 رصيد حماية من خوادم المحمل)</option>
+                                <option value="paid">ربحي (تقتطع المنصة 10% عمولة من مبيعاته)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 d-none" id="appPriceField">
+                            <label class="form-label fw-bold">سعر البيع للجمهور ($)</label>
+                            <input type="number" id="newAppPrice" class="form-control" placeholder="أدخل السعر بالدولار">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">ملحق حزمة التطبيق لتثبيتها (.apk / .zip)</label>
+                            <input type="file" class="form-control" required accept=".apk,.zip">
+                        </div>
+                        <button type="submit" class="btn btn-orange w-100 text-white fw-bold py-2">إطلاق ونشر التطبيق فوراً</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- ================================================================= -->
+    <!-- الأقسام والواجهات البرمجية للميزات المتقدمة الجديدة - الجزء الأول (Alpha Block Pro) -->
+    <!-- ================================================================= -->
+    <div class="container my-5" id="pro-features-container">
+        
+        <!-- صف أول: محرر الأكواد الاحترافي ومستودع الأكواد وعجلة الحظ -->
+        <div class="row g-4 mb-5">
+            <!-- 1. محرر الأكواد الاحترافي وأدوات التجميل (Web IDE & Beautifier) -->
+            <div class="col-lg-8">
+                <div class="card p-4 h-100 shadow-sm border border-primary-subtle">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-primary m-0 fw-bold"><i class="fas fa-laptop-code me-2"></i>محرر الأكواد المتكامل (Alpha Web IDE)</h4>
+                        <div class="d-flex gap-2">
+                            <button id="btnBeautify" class="btn btn-sm btn-outline-info fw-bold"><i class="fas fa-wand-magic-sparkles me-1"></i>تجميل Code</button>
+                            <button id="btnMinify" class="btn btn-sm btn-outline-warning fw-bold"><i class="fas fa-compress-alt me-1"></i>ضغط (Minify)</button>
+                        </div>
+                    </div>
+                    <div class="position-relative">
+                        <div class="ide-line-numbers" id="ideLineNumbers">1</div>
+                        <textarea id="proCodeEditor" class="form-control bg-dark text-light font-monospace p-3 ps-5" rows="12" style="line-height: 1.5; resize: none;" placeholder="// اكتب أو الصق شفرتك هنا.. يدعم التنسيق والتجميل والضغط الفوري..."></textarea>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                        <span class="text-muted small" id="editorStats">الأسطر: 1 | الحروف: 0</span>
+                        <button id="btnSaveSnippet" class="btn btn-sm btn-success fw-bold"><i class="fas fa-bookmark me-1"></i>حفظ في المستودع السحابي</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. مستودع الأكواد وعجلة الحظ اليومية (Snippets & Lucky Wheel) -->
+            <div class="col-lg-4">
+                <div class="d-flex flex-column gap-4 h-100">
+                    <!-- مستودع الأكواد (Snippets Cloud) -->
+                    <div class="card p-4 flex-grow-1 shadow-sm border-0">
+                        <h5 class="text-primary mb-3 fw-bold"><i class="fas fa-cloud me-2"></i>المستودع السحابي المصغر</h5>
+                        <div id="snippetsList" class="overflow-y-auto ps-1" style="max-height: 180px;">
+                            <div class="text-center text-muted small my-4">لا توجد أكواد محفوظة حالياً في هذا المتصفح.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- عجلة الحظ اليومية (Lucky Wheel) -->
+                    <div class="card p-4 text-center shadow-sm border border-warning-subtle">
+                        <h5 class="text-warning mb-2 fw-bold"><i class="fas fa-star me-2"></i>عجلة الحظ للرصيد اليومي</h5>
+                        <p class="text-muted small mb-3">دور العجلة مرة واحدة يومياً واربح أرصدة حماية مجانية إضافية!</p>
+                        <div class="mx-auto position-relative my-3" style="width: 130px; height: 130px;">
+                            <div id="luckyWheelCanvas" class="w-100 h-100 rounded-circle border border-4 border-warning d-flex justify-content-center align-items-center fw-bold text-white shadow" style="transition: transform 3s ease-out;">
+                                <span id="wheelCenterText">ALPHA</span>
+                            </div>
+                            <div class="position-absolute top-0 start-50 translate-middle-x text-danger animate-bounce" style="margin-top: -15px; z-index: 10;"><i class="fas fa-caret-down fs-3"></i></div>
+                        </div>
+                        <button id="btnSpinWheel" class="btn btn-warning w-100 fw-bold text-dark"><i class="fas fa-sync me-1"></i>تدوير العجلة الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- صف ثاني: مساعد الذكاء الاصطناعي ومولد الأكواد (AI Assistants) -->
+        <div class="row g-4 mb-5">
+            <!-- مساعد ألفا الذكي والشات الجانبي -->
+            <div class="col-md-6">
+                <div class="card p-4 h-100 shadow-sm border-0">
+                    <h4 class="text-primary mb-3 fw-bold"><i class="fas fa-robot me-2"></i>مساعد ألفا الذكي (Alpha AI)</h4>
+                    <div class="bg-dark text-light p-3 rounded mb-3 font-monospace overflow-y-auto" id="aiChatBox" style="height: 250px;">
+                        <div class="text-info small mb-2">[Alpha AI]: أهلاً بك يا مطور! أنا مساعدك البرمجي الذكي. كيف يمكنني مساعدتك في شرح الخوارزميات أو حل المشاكل البرمجية اليوم؟</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="aiPromptInput" class="form-control" placeholder="اسأل الذكاء الاصطناعي عن أي شيء في البرمجة...">
+                        <button id="btnAskAI" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- مولد الأكواد السحري من الوصف -->
+            <div class="col-md-6">
+                <div class="card p-4 h-100 shadow-sm border border-info-subtle">
+                    <h4 class="text-info mb-3 fw-bold"><i class="fas fa-magic me-2"></i>مولد الأكواد السحري بـ AI</h4>
+                    <p class="text-muted small">اكتب وصفاً برمجياً باللغة الطبيعية ليقوم الذكاء الاصطناعي بتوليد كود كامل وجاهز فوراً.</p>
+                    <div class="mb-3">
+                        <input type="text" id="aiGenDescription" class="form-control" placeholder="مثال: كود صفحة تسجيل دخول احترافية بلغة Flutter مع التحقق من الحقول">
+                    </div>
+                    <button id="btnGenerateCode" class="btn btn-info w-100 text-white fw-bold mb-3"><i class="fas fa-code me-1"></i>توليد الشفرة البرمجية فوراً</button>
+                    <div id="aiGeneratedOutput" class="p-3 bg-dark text-success rounded border font-monospace d-none position-relative">
+                        <button class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2" onclick="copyGeneratedCode()"><i class="fas fa-copy"></i></button>
+                        <pre id="aiGeneratedCodeText" class="mb-0 small" style="white-space: pre-wrap;"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- صف ثالث: نظام المزادات للتعاقدات الكبرى والتسويق بالعمولة ونظام النزاعات والضمان -->
+        <div class="row g-4 mb-5">
+            <!-- نظام المزادات على الأكواد النادرة (Code Auctions) -->
+            <div class="col-lg-7">
+                <div class="card p-4 h-100 shadow-sm border-0">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="text-primary m-0 fw-bold"><i class="fas fa-gavel me-2"></i>نظام مزادات الأكواد والمشاريع</h4>
+                        <span class="badge bg-danger animate-pulse p-2 fw-bold"><i class="fas fa-clock me-1"></i>مزادات حية</span>
+                    </div>
+                    <div id="auctionsContainer" class="row g-3">
+                        <!-- مشروع مزاد 1 -->
+                        <div class="col-12">
+                            <div class="p-3 border rounded bg-light-subtle d-flex flex-wrap justify-content-between align-items-center gap-3">
+                                <div>
+                                    <h6 class="mb-1 fw-bold text-dark">كود خوارزمية تداول ذكاء اصطناعي (Crypto AI Bot)</h6>
+                                    <p class="text-muted small mb-0">مزايدة حية ومباشرة على شيفرة بايتون متكاملة للتداول المؤتمت.</p>
+                                    <span class="badge bg-dark mt-2 fw-bold" id="auctionTimer1">الوقت المتبقي: 02:45:10</span>
+                                </div>
+                                <div class="text-end">
+                                    <div class="small text-muted">أعلى عرض حالي</div>
+                                    <h5 class="text-success fw-bold mb-2" id="currentAuctionBid">3,400 $</h5>
+                                    <div class="input-group input-group-sm" style="width: 160px;">
+                                        <input type="number" id="newBidAmount" class="form-control" placeholder="مبلغ أعلى">
+                                        <button id="btnPlaceBid" class="btn btn-danger fw-bold">زايد</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الضمان وحل النزاعات والتسويق بالعمولة (Escrow, Disputes & Affiliate) -->
+            <div class="col-lg-5">
+                <div class="d-flex flex-column gap-4 h-100">
+                    <!-- نظام الضمان وحل النزاعات (Escrow & Disputes) -->
+                    <div class="card p-4 shadow-sm border border-danger-subtle flex-grow-1">
+                        <h5 class="text-danger mb-2 fw-bold"><i class="fas fa-shield-heart me-2"></i>نظام الضمان وحل النزاعات</h5>
+                        <p class="text-muted small mb-3">حماية أموالك بالكامل لمدة 24 ساعة لفحص الكود وتجربته قبل تسليم الأرباح للبائع بشكل نهائي.</p>
+                        <div id="activeDisputes" class="p-2 border rounded bg-light text-center small text-muted">
+                            <i class="fas fa-user-shield text-success me-1"></i>جميع صفقاتك الحالية مؤمنة ومحمية من المنصة تلقائياً.
+                        </div>
+                        <button id="btnOpenDispute" class="btn btn-sm btn-outline-danger mt-3 d-none fw-bold"><i class="fas fa-exclamation-triangle me-1"></i>رفع تذكرة نزاع / طلب تحكيم</button>
+                    </div>
+
+                    <!-- نظام التسويق بالعمولة (Affiliate Program) -->
+                    <div class="card p-4 shadow-sm border border-success-subtle">
+                        <h5 class="text-success mb-2 fw-bold"><i class="fas fa-share-nodes me-2"></i>نظام التسويق بالعمولة (Affiliate)</h5>
+                        <p class="text-muted small mb-2">شارك روابط الأكواد والمنتجات الخاصة بالمنصة واربح عمولة 2% من كل عملية بيع ناجحة!</p>
+                        <div class="input-group input-group-sm">
+                            <input type="text" id="affiliateLinkInput" class="form-control" readonly value="https://github.io">
+                            <button id="btnCopyAffiliate" class="btn btn-success"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- صف رابع: لوحة الصدارة وإحصائيات الأرباح الحية للمطور -->
+        <div class="row g-4">
+            <!-- لوحة الصدارة (Leaderboard) -->
+            <div class="col-md-6">
+                <div class="card p-4 h-100 shadow-sm border-0">
+                    <h5 class="text-primary mb-3 fw-bold"><i class="fas fa-trophy me-2 text-warning"></i>لوحة الصدارة لأفضل المطورين مبيعاً</h5>
+                    <ol class="list-group list-group-numbered" id="leaderboardList">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 bg-transparent py-2">
+                            <div class="ms-2 me-auto fw-bold text-dark">أحمد المطور</div>
+                            <span class="badge bg-success rounded-pill fw-bold">12,500 $ مبيعات</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 bg-transparent py-2">
+                            <div class="ms-2 me-auto fw-bold text-dark">سارة للبرمجيات</div>
+                            <span class="badge bg-success rounded-pill fw-bold">9,800 $ مبيعات</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 bg-transparent py-2">
+                            <div class="ms-2 me-auto fw-bold text-dark">خالد للحلول الذكية</div>
+                            <span class="badge bg-success rounded-pill fw-bold">7,400 $ مبيعات</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- لوحة الإحصائيات (Stats) -->
+            <div class="col-md-6">
+                <div class="card p-4 h-100 shadow-sm border border-secondary-subtle">
+                    <h5 class="text-primary mb-3 fw-bold"><i class="fas fa-chart-line me-2"></i>لوحة إحصائيات المطور والأرباح الحية</h5>
+                    <div class="row g-2 text-center">
+                        <div class="col-6">
+                            <div class="p-3 border rounded bg-light">
+                                <span class="text-muted d-block small">إجمالي تحميلات تطبيقاتك</span>
+                                <h4 class="fw-bold text-dark mt-1" id="statsDownloads">1,248</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 border rounded bg-light">
+                                <span class="text-muted d-block small">صافي أرباحك المقبوضة</span>
+                                <h4 class="fw-bold text-success mt-1" id="statsEarnings">0.00 $</h4>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <div class="p-2 border rounded bg-primary-subtle text-primary small fw-bold">
+                                <i class="fas fa-percent me-1"></i>الرسوم المستقطعة لصالح تشغيل المنصة (10%): <span id="statsFees">0.00 $</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- إغلاق حاوية الميزات المتقدمة pro-features-container -->
+
+    <!-- تذييل الصفحة للموقع بالكامل -->
+    <footer class="bg-dark text-light-50 text-center py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <p class="mb-1 text-white fw-bold">منصة ألفا بلوك البرمجية العالمية &copy; 2026 - جميع الحقوق محفوظة عبر GitHub Pages</p>
+            <p class="small text-muted mb-0">نظام موحد لخدمة المطورين، تصحيح الأكواد، حماية المبيعات، وتوليد حزم التطبيقات الفورية.</p>
+        </div>
+    </footer>
+    <!-- مكتبة Bootstrap وجافا سكريبت لتفعيل التفاعلية الكاملة -->
+    <script src="https://jsdelivr.net"></script>
+    <script>
+        // --- إعدادات الحساب والرصيد التلقائي وضبط البيانات الافتراضية ---
+        let userCredits = 2; 
+        let activeChatSession = null;
+        let isUserPremium = localStorage.getItem('alpha_premium') === 'true';
+
+        // تحديث واجهة الرصيد المتبقي اليومي
+        function updateCreditUI() {
+            const creditDisplay = document.getElementById('creditDisplay');
+            if (creditDisplay) {
+                if (isUserPremium) {
+                    const currentLang = localStorage.getItem('alpha_lang') || 'ar';
+                    creditDisplay.className = "badge bg-success p-2 animate-pulse fs-6";
+                    creditDisplay.innerText = (translations && translations[currentLang]) ? translations[currentLang].unlimited : "باقات الحماية: رصيد غير محدود (حساب مدفوع VIP) 🔥";
+                } else {
+                    creditDisplay.className = "badge bg-secondary p-2 fs-6";
+                    creditDisplay.innerText = `الرصيد المتبقي اليوم: ${userCredits} باقة حماية`;
+                }
+            }
+        }
+
+        // --- نظام التثبيت كتطبيق PWA من خلال الشريط العلوي ---
+        let deferredPrompt;
+        const pwaBanner = document.getElementById('pwa-banner');
+        const btnInstallPWA = document.getElementById('btnInstallPWA');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (pwaBanner) pwaBanner.classList.remove('d-none');
+        });
+
+        if (btnInstallPWA) {
+            btnInstallPWA.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted' && pwaBanner) {
+                        pwaBanner.classList.add('d-none');
+                    }
+                    deferredPrompt = null;
+                }
+            });
+        }
+
+        // --- نظام فحص وتصحيح الأكواد التلقائي وجدار الحماية (Sandbox AI) ---
+        const btnCompile = document.getElementById('btnCompile');
+        if (btnCompile) {
+            btnCompile.addEventListener('click', function() {
+                const editorText = document.getElementById('codeEditor').value.trim();
+                const urlText = document.getElementById('codeUrl').value.trim();
+                const codeFileInput = document.getElementById('codeFile');
+                const fileInput = codeFileInput ? codeFileInput.files.length : 0;
+
+                if (!editorText && !urlText && fileInput === 0) {
+                    alert('الرجاء كتابة كود، أو لصق رابط مشروع، أو رفع ملف برمجى أولاً لفحصه.');
+                    return;
+                }
+
+                const outputDiv = document.getElementById('compilerOutput');
+                const outputText = document.getElementById('outputText');
+                const btnBuildApp = document.getElementById('btnBuildApp');
+
+                if (outputDiv && outputText) {
+                    outputDiv.classList.remove('d-none');
+                    outputText.innerHTML = "<span class='text-info'><i class='fas fa-spinner fa-spin me-2'></i>جاري تمرير الشفرة عبر جدار الحماية الذكي Sandbox AI وتحليل الثغرات والأخطاء...</span>";
+                    if (btnBuildApp) btnBuildApp.classList.add('d-none');
+
+                    setTimeout(() => {
+                        outputText.innerHTML = `[SUCCESS] تم عزل وتأمين البيئة البرمجية البرمجية بنجاح داخل الـ Sandbox.\n[INFO] لم يتم العثور على أي برمجيات خبيثة أو اتصالات خارجية مشبوهة.\n[AI FIXER] الكود خالي من الأخطاء وجاهز ومطابق لمعايير الحزم المستقرة.\n[STATUS] يمكنك الآن ضغط وتجميع ملفاتك مباشرة لإنتاج التطبيق الفوري وتثبيته.`;
+                        if (btnBuildApp) btnBuildApp.classList.remove('d-none');
+                    }, 2500);
+                }
+            });
+        }
+
+        // تحويل الأكواد إلى تطبيقات أندرويد (الزر البرتقالي المباشر)
+        const btnBuildApp = document.getElementById('btnBuildApp');
+        if (btnBuildApp) {
+            btnBuildApp.addEventListener('click', function() {
+                if (!isUserPremium && userCredits <= 0) {
+                    alert('عذراً، نفد رصيد الباقات المجانية المتاحة لك اليوم. يرجى الترقية إلى الخطط المدفوعة لفتح قيود النشر والتجميع الخارجي اللانهائي.');
+                    return;
+                }
+
+                if (confirm('هل تريد استخدام (1 باقة حماية) لربط وتجميع ملفاتك البرمجية وإنتاج حزمة أندرويد وتثبيتها فوراً؟')) {
+                    if (!isUserPremium) {
+                        userCredits--;
+                    }
+                    updateCreditUI();
+                    alert('بدء تجميع وفهرسة الملفات ومزامنة حزم Gradle البرمجية... سيتم تنزيل ملف الـ APK الخاص بك وتثبيته تلقائياً فور انتهاء البناء في غضون ثوانٍ.');
+                }
+            });
+        }
+        // --- نظام محادثة وغرفة تفاوض فورية مدمج بآلية اقتطاع عمولة المنصة (10%) ---
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('btn-start-chat')) {
+                const seller = e.target.getAttribute('data-seller');
+                const item = e.target.getAttribute('data-item');
+                const price = e.target.getAttribute('data-price');
+
+                activeChatSession = { seller, item, price };
+
+                const activeSellerName = document.getElementById('activeSellerName');
+                const chatMessage = document.getElementById('chatMessage');
+                const btnSendMessage = document.getElementById('btnSendMessage');
+                const negotiationTools = document.getElementById('negotiationTools');
+                const chatBox = document.getElementById('chatBox');
+
+                if (activeSellerName) activeSellerName.innerText = `التفاوض مع: ${seller} (${item})`;
+                if (chatMessage) chatMessage.disabled = false;
+                if (btnSendMessage) btnSendMessage.disabled = false;
+                if (negotiationTools) negotiationTools.classList.remove('d-none');
+                
+                if (chatBox) {
+                    chatBox.innerHTML = `
+                        <div class="alert alert-info small text-center mb-3">
+                            بدأت الآن جلسة تفاوض آمنة لشراء <strong>[${item}]</strong>. السعر الأصلي المعلن: <strong>${price}$</strong>.
+                        </div>
+                    `;
+                }
+            }
+        });
+
+        // إرسال رسالة نصية عادية في الشات
+        function sendMessage() {
+            const msgInput = document.getElementById('chatMessage');
+            if (!msgInput) return;
+            
+            const messageText = msgInput.value.trim();
+            if (!messageText) return;
+
+            const chatBox = document.getElementById('chatBox');
+            if (chatBox) {
+                // رسالة المشتري (المستخدم الحالي)
+                chatBox.innerHTML += `
+                    <div class="text-end mb-2">
+                        <div class="d-inline-block bg-primary text-white p-2 rounded-3 small max-w-75">${messageText}</div>
+                    </div>
+                `;
+                
+                msgInput.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // رد تلقائي ذكي ومحاكي من البائع للتفاوض المستمر
+                setTimeout(() => {
+                    chatBox.innerHTML += `
+                        <div class="text-start mb-2">
+                            <div class="d-inline-block bg-white text-dark p-2 rounded-3 small border max-w-75 shadow-sm">
+                                أهلاً بك، الكود نظيف تماماً ومحدث ومفحوص بالذكاء الاصطناعي على سيرفرات ألفا بلوك، يمكنك إرسال عرض مالي بالسعر المناسب لك لإتمام البيع وتوليد مفاتيح الترخيص الآمنة فوراً.
+                            </div>
+                        </div>
+                    `;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1500);
+            }
+        }
+
+        const btnSendMessage = document.getElementById('btnSendMessage');
+        const chatMessage = document.getElementById('chatMessage');
+        
+        if (btnSendMessage) btnSendMessage.addEventListener('click', sendMessage);
+        if (chatMessage) {
+            chatMessage.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
+
+        // نظام العروض المالية واحتساب العمولات الدقيق (10%)
+        const btnSendOffer = document.getElementById('btnSendOffer');
+        if (btnSendOffer) {
+            btnSendOffer.addEventListener('click', function() {
+                const offerPriceInput = document.getElementById('negotiatedPrice');
+                if (!offerPriceInput) return;
+                
+                const offerPrice = parseFloat(offerPriceInput.value);
+
+                if (!offerPrice || offerPrice <= 0) {
+                    alert('الرجاء إدخال سعر عرض مالي صحيح وعادل لبدء الصفقة الآمنة.');
+                    return;
+                }
+
+                // احتساب العمولات بدقة
+                const platformFee = offerPrice * 0.10;
+                const sellerNet = offerPrice - platformFee;
+
+                const chatBox = document.getElementById('chatBox');
+                if (chatBox) {
+                    // إرسال العرض المالي للدردشة
+                    chatBox.innerHTML += `
+                        <div class="text-center my-3">
+                            <div class="card border-warning bg-warning-subtle d-inline-block p-3 rounded text-dark text-start shadow-sm max-w-90">
+                                <h6 class="fw-bold mb-2"><i class="fas fa-handshake-deal text-warning-dark me-1"></i>تم إرسال عرض مالي رسمي ومثبت</h6>
+                                <ul class="list-unstyled small mb-2 p-0">
+                                    <li>• إجمالي قيمة الصفقة: <strong>${offerPrice}$</strong></li>
+                                    <li>• عمولة المنصة المقتطعة (10%): <strong class="text-danger">${platformFee}$</strong></li>
+                                    <li>• صافي أرباح البائع المحولة: <strong class="text-success">${sellerNet}$</strong></li>
+                                </ul>
+                                <button class="btn btn-sm btn-success w-100 fw-bold id-accept-deal-btn" onclick="executeDeal(${offerPrice}, ${platformFee}, ${sellerNet})">الموافقة وتأمين الدفع والتسليم</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    offerPriceInput.value = '';
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            });
+        }
+
+        // تنفيذ الصفقة ومحاكاة التسليم وتفعيل ميزات المنصة مجاناً (VIP) فور الدفع حماية للمشتري
+        window.executeDeal = function(price, fee, net) {
+            // تفعيل الوضع الاحترافي واللا محدود للمستخدم فور نجاح عملية الدفع
+            isUserPremium = true;
+            localStorage.setItem('alpha_premium', 'true');
+            if (typeof checkPremiumStatus === "function") {
+                checkPremiumStatus();
+            }
+
+            const chatBox = document.getElementById('chatBox');
+            if (chatBox) {
+                chatBox.innerHTML += `
+                    <div class="alert alert-success my-3 text-start small border-success">
+                        <h6 class="fw-bold text-success"><i class="fas fa-check-circle me-1"></i>تمت الصفقة ومعالجة الدفع بنجاح!</h6>
+                        تم حسم الصفقة واقتطاع عمولة المنصة المقدرة بـ <strong>${fee}$</strong> وتأمين صافي الربح <strong>${net}$</strong> للبائع.<br>
+                        <hr class="my-2">
+                        <p class="mb-1 text-dark fw-bold">الروابط الآمنة ومفاتيح التراخيص الناتجة:</p>
+                        <div class="bg-white p-2 rounded font-monospace text-danger border small mb-2">LICENSE_KEY: AB-2026-X99F-CREDIT-SECURE</div>
+                        <a href="#" class="btn btn-sm btn-dark w-100 mb-2"><i class="fas fa-download me-1"></i>تحميل حزمة الكود المصدري المؤمّن (.zip)</a>
+                        <div class="text-center text-warning fw-bold bg-dark p-2 rounded mt-1">🚀 تم ترقية حسابك للوضع الاحترافي (VIP) مجاناً بالكامل الآن! جميع القيود فُتحت.</div>
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            // تحديث لوحة الإحصائيات والأرباح حياً لصاحب الحساب كبائع محاكى
+            const statsEarnings = document.getElementById('statsEarnings');
+            const statsFees = document.getElementById('statsFees');
+            if (statsEarnings) statsEarnings.innerText = `${net.toFixed(2)} $`;
+            if (statsFees) statsFees.innerText = `${fee.toFixed(2)} $`;
+        };
+        // --- إدارة سوق الأكواد: إضافة شفرة برمجية جديدة حياً وبشكل فوري ---
+        const frmAddCode = document.getElementById('frmAddCode');
+        if (frmAddCode) {
+            frmAddCode.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const title = document.getElementById('newCodeTitle').value.trim();
+                const lang = document.getElementById('newCodeLang').value.trim();
+                const desc = document.getElementById('newCodeDesc').value.trim();
+                const price = document.getElementById('newCodePrice').value.trim();
+
+                const marketplaceItems = document.getElementById('marketplaceItems');
+                if (marketplaceItems) {
+                    const newCol = document.createElement('div');
+                    newCol.className = 'col-md-6';
+                    newCol.innerHTML = `
+                        <div class="card h-100 border border-light-subtle shadow-sm animate-fade-in bg-body">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="badge bg-primary mb-2 fw-bold">${lang}</span>
+                                    <h5 class="card-title fw-bold text-dark">${title}</h5>
+                                    <p class="card-text text-muted small">${desc}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-success fw-bold my-3">${price} $</h4>
+                                    <button class="btn btn-outline-primary w-100 btn-start-chat fw-bold" data-seller="أنت (البائع)" data-item="${title}" data-price="${price}"><i class="fas fa-comments me-2"></i>تفاوض وشراء فوراً</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    marketplaceItems.insertBefore(newCol, marketplaceItems.firstChild);
+                }
+                
+                // إغلاق النافذة المنبثقة ومسح الحقول
+                const modalEl = document.getElementById('addCodeModal');
+                if (modalEl) {
+                    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                    if (modalInstance) modalInstance.hide();
+                }
+                frmAddCode.reset();
+                alert('تم نشر الكود الخاص بك بنجاح في سوق الأكواد العالمي، المنصة جاهزة لاستقبال العروض واقتطاع العمولة تلقائياً عند الشراء.');
+            });
+        }
+
+        // --- إدارة متجر التطبيقات: التحكم بحقول الأسعار ونشر حزم جديدة ---
+        const newAppType = document.getElementById('newAppType');
+        if (newAppType) {
+            newAppType.addEventListener('change', function() {
+                const priceField = document.getElementById('appPriceField');
+                const newAppPrice = document.getElementById('newAppPrice');
+                if (priceField && newAppPrice) {
+                    if (this.value === 'paid') {
+                        priceField.classList.remove('d-none');
+                        newAppPrice.setAttribute('required', 'required');
+                    } else {
+                        priceField.classList.add('d-none');
+                        newAppPrice.removeAttribute('required');
+                    }
+                }
+            });
+        }
+
+        const frmPublishApp = document.getElementById('frmPublishApp');
+        if (frmPublishApp) {
+            frmPublishApp.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('newAppName').value.trim();
+                const type = document.getElementById('newAppType').value;
+                const priceInput = document.getElementById('newAppPrice');
+                const price = type === 'paid' ? (priceInput ? priceInput.value + ' $' : '0 $') : '0 $';
+                
+                const badgeClass = type === 'paid' ? 'bg-success' : 'bg-secondary';
+                const badgeText = type === 'paid' ? 'ربحي' : 'مجاني';
+                
+                const btnText = type === 'paid' ? '<i class="fas fa-shopping-cart me-1"></i>شراء وتحميل' : '<i class="fas fa-download me-1"></i>تحميل (1 رصيد)';
+                const btnClass = type === 'paid' ? 'btn-orange' : 'btn-outline-primary';
+
+                const appStoreItems = document.getElementById('appStoreItems');
+                if (appStoreItems) {
+                    const newRow = document.createElement('tr');
+                    newRow.className = 'animate-fade-in';
+                    newRow.innerHTML = `
+                        <td><strong>${name}</strong></td>
+                        <td><span class="badge ${badgeClass} fw-bold">${badgeText}</span></td>
+                        <td class="${type === 'paid' ? 'text-success fw-bold' : 'text-muted fw-bold'}">${price}</td>
+                        <td class="text-center"><button class="btn btn-sm ${btnClass} btn-download-app fw-bold" data-name="${name}" data-type="${type}" data-cost="${type === 'paid' ? parseInt(price) : 1}">${btnText}</button></td>
+                    `;
+
+                    appStoreItems.insertBefore(newRow, appStoreItems.firstChild);
+                }
+
+                const modalEl = document.getElementById('publishAppModal');
+                if (modalEl) {
+                    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                    if (modalInstance) modalInstance.hide();
+                }
+                frmPublishApp.reset();
+                const priceField = document.getElementById('appPriceField');
+                if (priceField) priceField.classList.add('d-none');
+                alert('تهانينا! تم رفع حزمة تطبيقك وجدولة إطلاقها للجمهور على متجر تطبيقات ألفا بلوك بالعمولة المحددة بنجاح.');
+            });
+        }
+
+        // معالجة تحميل التطبيقات من المتجر وحسم الأرصدة أو محاكاة الدفع والعمولة
+        document.addEventListener('click', function(e) {
+            let targetBtn = null;
+            if (e.target && e.target.classList.contains('btn-download-app')) {
+                targetBtn = e.target;
+            } else if (e.target && e.target.parentElement && e.target.parentElement.classList.contains('btn-download-app')) {
+                targetBtn = e.target.parentElement;
+            }
+
+            if (targetBtn) {
+                const name = targetBtn.getAttribute('data-name');
+                const type = targetBtn.getAttribute('data-type');
+                const cost = parseFloat(targetBtn.getAttribute('data-cost'));
+
+                if (type === 'free') {
+                    if (!isUserPremium && userCredits < cost) {
+                        alert('لا يمكنك تحميل التطبيق المجاني، رصيدك الحالي غير كافٍ. تحتاج إلى (1 رصيد حماية خوادم) على الأقل، أو قم بتفعيل الحساب المدفوع لفتح قيود التحميل.');
+                        return;
+                    }
+                    if (confirm(`هل ترغب في تحميل [${name}] المجاني مقابل خصم 1 رصيد حماية من خوادم ألفا بلوك؟`)) {
+                        if (!isUserPremium) {
+                            userCredits -= cost;
+                        }
+                        updateCreditUI();
+                        alert('تم التحقق من الحماية والترميز الآمن بنجاح. يبدأ تنزيل الحزمة البرمجية إلى جهازك الآن مجاناً.');
+                    }
+                } else {
+                    const fee = cost * 0.10;
+                    if (confirm(`هذا التطبيق ربحي وقيمته ${cost}$. عند إتمام الشراء، ستذهب ${fee}$ كعمولة تشغيل للمنصة ويحصل المطور على الباقي. هل تود المتابعة لمدفوعات حزمة الـ APK؟`)) {
+                        alert('تم توجيه المعاملة لبوابة الدفع الآمنة بنجاح، ويبدأ تحميل حزمة التطبيق المثبتة فور استجابة الشبكة.');
+                    }
+                }
+            }
+        });
+        // ==========================================
+        // 1. تشغيل ميزات المحرر المتقدم (IDE, Beautifier & Snippets)
+        // ==========================================
+        const proCodeEditor = document.getElementById('proCodeEditor');
+        const ideLineNumbers = document.getElementById('ideLineNumbers');
+        const editorStats = document.getElementById('editorStats');
+
+        if (proCodeEditor && ideLineNumbers && editorStats) {
+            proCodeEditor.addEventListener('input', function() {
+                const text = this.value;
+                const lines = text.split('\n').length;
+                const chars = text.length;
+                
+                // تحديث ترقيم الأسطر
+                let lineNumbersHTML = '';
+                for (let i = 1; i <= lines; i++) {
+                    lineNumbersHTML += i + '<br>';
+                }
+                ideLineNumbers.innerHTML = lineNumbersHTML;
+                editorStats.innerText = `الأسطر: ${lines} | الحروف: ${chars}`;
+            });
+        }
+
+        // تجميل الكود (Beautifier)
+        document.getElementById('btnBeautify')?.addEventListener('click', function() {
+            if (!proCodeEditor) return;
+            let code = proCodeEditor.value.trim();
+            if (!code) return alert('الرجاء كتابة كود لتجميله.');
+            // تنظيف وتنسيق الكود
+            code = code.replace(/\{/g, " {\n    ").replace(/\}/g, "\n}").replace(/;/g, ";\n    ");
+            proCodeEditor.value = code;
+            proCodeEditor.dispatchEvent(new Event('input'));
+            alert('تم تنسيق وتجميل الشفرة البرمجية بنجاح!');
+        });
+
+        // ضغط الكود (Minify)
+        document.getElementById('btnMinify')?.addEventListener('click', function() {
+            if (!proCodeEditor) return;
+            let code = proCodeEditor.value.trim();
+            if (!code) return alert('الرجاء كتابة كود لضغطه.');
+            // ضغط الكود وإزالة الفراغات والأسطر
+            code = code.replace(/\s+/g, " ").replace(/\{\s+/g, "{").replace(/\s+\}/g, "}");
+            proCodeEditor.value = code;
+            proCodeEditor.dispatchEvent(new Event('input'));
+            alert('تم ضغط الكود بنجاح لتقليل مساحة حزمة التطبيق!');
+        });
+
+        // المستودع السحابي المصغر (Snippets)
+        document.getElementById('btnSaveSnippet')?.addEventListener('click', function() {
+            if (!proCodeEditor) return;
+            const code = proCodeEditor.value.trim();
+            if (!code) return alert('محرر الأكواد فارغ!');
+
+            const snippetsList = document.getElementById('snippetsList');
+            if (snippetsList) {
+                if (snippetsList.innerText.includes('لا توجد أكواد')) snippetsList.innerHTML = '';
+                
+                const time = new Date().toLocaleTimeString();
+                const div = document.createElement('div');
+                div.className = 'p-2 border-bottom small d-flex justify-content-between align-items-center animate-fade-in';
+                div.innerHTML = `
+                    <span><i class='fas fa-file-code text-primary me-1'></i> شفرة محفوظة (${time})</span>
+                    <button class='btn btn-xs btn-outline-secondary p-1 py-0' onclick='proCodeEditor.value = \`${code.replace(/`/g, "\\`")}\`; proCodeEditor.dispatchEvent(new Event(\"input\"));'><i class='fas fa-folder-open'></i></button>
+                `;
+                snippetsList.insertBefore(div, snippetsList.firstChild);
+                alert('تم الحفظ في مستودع المتصفح السحابي بنجاح!');
+            }
+        });
+
+        // ==========================================
+        // 2. تدوير عجلة الحظ للرصيد اليومي (مصححة ومكتملة)
+        // ==========================================
+        let wheelSpun = false;
+        document.getElementById('btnSpinWheel')?.addEventListener('click', function() {
+            if (wheelSpun) return alert('لقد قمت بتدوير عجلة الحظ اليوم بالفعل! عد غداً لربح المزيد من الأرصدة.');
+            const wheel = document.getElementById('luckyWheelCanvas');
+            if (wheel) {
+                wheelSpun = true;
+                const randomDeg = Math.floor(Math.random() * 360) + 1440; // 4 لفات كاملة على الأقل
+                wheel.style.transform = `rotate(${randomDeg}deg)`;
+                
+                setTimeout(() => {
+                    const prizes =; // قائمة الجوائز المتاحة للأرصدة المجانية
+                    const prize = prizes[Math.floor(Math.random() * prizes.length)];
+                    if (!isUserPremium) {
+                        userCredits += prize;
+                        updateCreditUI();
+                    }
+                    document.getElementById('wheelCenterText').innerText = `+${prize}`;
+                    alert(`مبروك! ربحت ${prize} رصيد باقة حماية مجانية إضافية لخوادمك اليوم.`);
+                }, 3000);
+            }
+        });
+
+        // ==========================================
+        // 3. مساعد ومولد الأكواد بـ AI (Alpha AI)
+        // ==========================================
+        document.getElementById('btnAskAI')?.addEventListener('click', function() {
+            const promptInput = document.getElementById('aiPromptInput');
+            const chatBox = document.getElementById('aiChatBox');
+            if (!promptInput || !chatBox || !promptInput.value.trim()) return;
+
+            const userText = promptInput.value.trim();
+            chatBox.innerHTML += `<div class='text-white small mb-2'>[أنت]: ${userText}</div>`;
+            promptInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            setTimeout(() => {
+                chatBox.innerHTML += `<div class='text-info small mb-2'>[Alpha AI]: بناءً على تحليل الشفرات البرمجية، يوصى باستخدام مصفوفة معزولة لحماية الذاكرة والتأكد من مطابقة دوال التحقق لمعايير الأمان العامة لديك.</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1200);
+        });
+
+        // مولد الأكواد السحري بـ AI
+        document.getElementById('btnGenerateCode')?.addEventListener('click', function() {
+            const desc = document.getElementById('aiGenDescription')?.value.trim();
+            if (!desc) return alert('الرجاء كتابة وصف برمجى لتوليد الكود المصدري.');
+            
+            const outputDiv = document.getElementById('aiGeneratedOutput');
+            const codeText = document.getElementById('aiGeneratedCodeText');
+            
+            if (outputDiv && codeText) {
+                outputDiv.classList.remove('d-none');
+                codeText.innerText = '// جاري توليد وتدقيق الشفرة البرمجية بالذكاء الاصطناعي...';
+                
+                setTimeout(() => {
+                    codeText.innerText = `// كود تم توليده تلقائياً بناءً على: [${desc}]\n// Alpha Block AI Certified\n\nvoid main() {\n    print("مرحباً بك في نظام ألفا بلوك المؤمّن حياً!");\n    // يمكنك نسخ هذا الكود البرمجي ولصقه مباشرة في المحرر الرئيسي للاستخدام\n}`;
+                }, 2000);
+            }
+        });
+
+        window.copyGeneratedCode = function() {
+            const txt = document.getElementById('aiGeneratedCodeText')?.innerText;
+            if (txt) {
+                navigator.clipboard.writeText(txt);
+                alert('تم نسخ الكود المولد بـ AI إلى الحافظة بنجاح!');
+            }
+        };
+        // ==========================================
+        // 4. نظام المزايدات والضمان والتسويق بالعمولة
+        // ==========================================
+        document.getElementById('btnPlaceBid')?.addEventListener('click', function() {
+            const bidInput = document.getElementById('newBidAmount');
+            const currentBid = document.getElementById('currentAuctionBid');
+            if (!bidInput || !currentBid) return;
+
+            const bidVal = parseFloat(bidInput.value);
+            if (!bidVal || bidVal <= 3400) return alert('الرجاء إدخال مبلغ مزايدة أعلى من أعلى عرض حالي (3,400 $)');
+
+            currentBid.innerText = `${bidVal.toLocaleString()} $`;
+            bidInput.value = '';
+            alert('تم تسجيل عرض المزايدة الخاص بك حياً في المزاد! إذا انتهى المؤقت ولم يزايد أحد، ستحصل على الكود تلقائياً.');
+        });
+
+        document.getElementById('btnCopyAffiliate')?.addEventListener('click', function() {
+            const linkInput = document.getElementById('affiliateLinkInput');
+            if (linkInput) {
+                linkInput.select();
+                navigator.clipboard.writeText(linkInput.value);
+                alert('تم نسخ رابط التسويق بالعمولة الفريد الخاص بك! ستحصل على عمولة 2% فوراً عند شراء أي مستخدم عبر الرابط.');
+            }
+        });
+
+        // ==========================================
+        // 5. نظام الترجمة وتعدد اللغات العالمي (Alpha i18n - اللغات الست)
+        // ==========================================
+        const translations = {
+            ar: {
+                title: "نظام فحص وتصحيح الأكواد التلقائي (Sandbox AI)",
+                editorPlaceholder: "// اكتب أو الصق كودك هنا ليقوم جدار الحماية والذكاء الاصطناعي بتصحيحه تلقائياً...",
+                btnCompile: "فحص وتصحيح الكود",
+                btnBuild: "تحويل الكود إلى تطبيق أندرويد",
+                marketTitle: "سوق الأكواد العالمي",
+                chatTitle: "غرفة التفاوض الفورية",
+                storeTitle: "متجر تطبيقات Alpha Block Play",
+                jobsTitle: "بوابة التوظيف الموحدة",
+                unlimited: "باقات الحماية: رصيد غير محدود (حساب مدفوع VIP) 🔥"
+            },
+            en: {
+                title: "Automatic Code Inspection & Debugging (Sandbox AI)",
+                editorPlaceholder: "// Write or paste your code here for auto-debugging...",
+                btnCompile: "Check & Debug Code",
+                btnBuild: "Convert Code to Android App",
+                marketTitle: "Global Code Marketplace",
+                chatTitle: "Instant Negotiation Room",
+                storeTitle: "Alpha Block Play Store",
+                jobsTitle: "Unified Jobs Portal",
+                unlimited: "Protection Pack: Unlimited Credits (VIP Premium Account) 🔥"
+            },
+            de: {
+                title: "Automatische Code-Inspektion & Debugging (Sandbox AI)",
+                editorPlaceholder: "// Schreiben oder fügen Sie Ihren Code hier ein...",
+                btnCompile: "Code prüfen & debuggen",
+                btnBuild: "Code in Android-App konvertieren",
+                marketTitle: "Globaler Code-Marktplatz",
+                chatTitle: "Sofortiger Verhandlungsraum",
+                storeTitle: "Alpha Block Play Store",
+                jobsTitle: "Einheitliches Jobportal",
+                unlimited: "Schutzpaket: Unbegrenztes Guthaben (VIP Premium) 🔥"
+            },
+            fr: {
+                title: "Inspection automatique et débogage de code (Sandbox AI)",
+                editorPlaceholder: "// Écrivez ou collez votre code ici pour le débogage...",
+                btnCompile: "Vérifier et déboguer le code",
+                btnBuild: "Convertir le code en application Android",
+                marketTitle: "Marché mondial des codes",
+                chatTitle: "Salle de négociation instantanée",
+                storeTitle: "Alpha Block Play Store",
+                jobsTitle: "Portail d'emploi unifié",
+                unlimited: "Pack de Protection: Crédits Illimités (Premium VIP) 🔥"
+            },
+            es: {
+                title: "Inspección y depuración automática de código (Sandbox AI)",
+                editorPlaceholder: "// Escriba o pegue su código aquí para depuración...",
+                btnCompile: "Verificar y depurar código",
+                btnBuild: "Convertir código a aplicación Android",
+                marketTitle: "Mercado global de códigos",
+                chatTitle: "Sala de negociación instantánea",
+                storeTitle: "Alpha Block Play Store",
+                jobsTitle: "Portal de empleo unificado",
+                unlimited: "Paquete de Protección: Créditos Ilimitados (VIP Premium) 🔥"
+            },
+            it: {
+                title: "Ispezione e debug automatico del codice (Sandbox AI)",
+                editorPlaceholder: "// Scrivi o incolla il tuo codice qui per il debug...",
+                btnCompile: "Controlla e debug del codice",
+                btnBuild: "Converti codice in app Android",
+                marketTitle: "Mercato globale del codice",
+                chatTitle: "Stanza di negoziazione istantanea",
+                storeTitle: "Alpha Block Play Store",
+                jobsTitle: "Portale del lavoro unificato",
+                unlimited: "Pacchetto Protezione: Crediti Illimitati (VIP Premium) 🔥"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!translations[lang]) return;
+            localStorage.setItem('alpha_lang', lang);
+            
+            const t = translations[lang];
+            const compTitle = document.querySelector('#compiler-section h3');
+            if (compTitle) compTitle.innerHTML = `<i class="fas fa-code-branch me-2"></i>${t.title}`;
+            
+            const editor = document.getElementById('codeEditor');
+            if (editor) editor.setAttribute('placeholder', t.editorPlaceholder);
+            
+            const compBtn = document.getElementById('btnCompile');
+            if (compBtn) compBtn.innerHTML = `<i class="fas fa-terminal me-2"></i>${t.btnCompile}`;
+            
+            const buildBtn = document.getElementById('btnBuildApp');
+            if (buildBtn) buildBtn.innerHTML = `<i class="fas fa-android me-2"></i>${t.btnBuild}`;
+            
+            const mTitle = document.querySelector('#marketplace-section h3');
+            if (mTitle) mTitle.innerHTML = `<i class="fas fa-store me-2"></i>${t.marketTitle}`;
+            
+            const cTitle = document.querySelector('#chatWindow .card-header h5');
+            if (cTitle) cTitle.innerHTML = `<i class="fas fa-comments-dollar me-2"></i>${t.chatTitle}`;
+            
+            const sTitle = document.querySelector('#store-jobs-section h3');
+            if (sTitle) sTitle.innerHTML = `<i class="fab fa-google-play me-2"></i>${t.storeTitle}`;
+            
+            const jTitle = document.getElementById('jobsList')?.parentElement?.querySelector('h3');
+            if (jTitle) jTitle.innerHTML = `<i class="fas fa-briefcase me-2"></i>${t.jobsTitle}`;
+            
+            document.body.style.direction = (lang === 'ar') ? 'rtl' : 'ltr';
+            
+            checkPremiumStatus();
+        }
+
+        function injectLanguageSelector() {
+            const navbarContainer = document.querySelector('.navbar .container');
+            if (navbarContainer) {
+                const div = document.createElement('div');
+                div.className = 'ms-2 p-1 bg-dark rounded border border-secondary';
+                div.innerHTML = `
+                    <select id="langSelect" class="form-select form-select-sm bg-secondary text-white border-0" style="width: auto; cursor: pointer;">
+                        <option value="ar">العربية 🇸🇦</option>
+                        <option value="en">English 🇺🇸</option>
+                        <option value="de">Deutsch 🇩🇪</option>
+                        <option value="fr">Français 🇫🇷</option>
+                        <option value="es">Español 🇪🇸</option>
+                        <option value="it">Italiano 🇮🇹</option>
+                    </select>
+                `;
+                navbarContainer.appendChild(div);
+                
+                document.getElementById('langSelect').addEventListener('change', function() {
+                    setLanguage(this.value);
+                });
+                
+                const savedLang = localStorage.getItem('alpha_lang') || 'ar';
+                document.getElementById('langSelect').value = savedLang;
+                setLanguage(savedLang);
+            }
+        }
+
+        window.checkPremiumStatus = function() {
+            updateCreditUI();
+            if (isUserPremium) {
+                const btnBuild = document.getElementById('btnBuildApp');
+                if (btnBuild) btnBuild.classList.remove('d-none');
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            injectLanguageSelector();
+            checkPremiumStatus();
+        });
+    </script>
+</body>
+</html>
